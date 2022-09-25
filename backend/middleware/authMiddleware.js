@@ -10,7 +10,7 @@ export const protect = asyncHandler(async (req, res, next) => {
     try {
       // Remove "bearer" from the token
       let token = req.headers.authorization.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_TOKEN);
+      const decoded = jwt.verify(token, process.env.JWT_TOKEN || "mehdiToken");
       // Saves as "req.user"
       req.user = await UserModel.findById(decoded.id).select('-password');
       next();
